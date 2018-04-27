@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Golf Quiz</title>
+        <title>Capital Quiz</title>
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" >
+        <link rel="stylesheet" href="float-grid.css" />
         <link rel="stylesheet" type="text/css" href="main.css" >
     </head>
     <body>
+        <header>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>Capital Quiz</h1>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section>
+                <h2>What is the Capital of South Carolina</h2>
+                <form>
+                    <fieldset>
+                        <div class="row">
+                            
+                            <div class="col-3 radioSpacing">
+                                <input type="radio" id="answer1"
+                                    name="answer">
+                                <label for="answer1">Columbia</label>
+                            </div>
 
-        <script src="index.js"></script>
+                            <div class="col-3 radioSpacing">
+                                <input type="radio" id="answer2"
+                                    name="answer">
+                                <label for="answer2">Charleston</label>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-3 radioSpacing">
+                                <input type="radio" id="answer3"
+                                    name="answer">
+                                <label for="answer3">Greenville</label>
+                            </div>
+
+                            <div class="col-3 radioSpacing">
+                                <input type="radio" id="answer4"
+                                    name="answer">
+                                <label for="answer4">Dillon</label>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="buttonStyle">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </section>
+        </main>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+        <script type="text/javascript" src="index.js"></script>
     </body>
 </html>
