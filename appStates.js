@@ -16,5 +16,10 @@ let QUESTION_ORDER = [];
 
 let SCORE = 0;
 
-//let QUESTION_INDEX = [];
 let QUESTION_INDEX = 0;
+
+function setAppStates(){
+    QUESTION_ORDER = [];
+    SCORE = 0;
+    QUESTION_INDEX = 0;
+}

@@ -1,16 +1,4 @@
 
-/*
-const CAPITALS = [
-    {id: 0, state: "South Carolina", cities:["Columbia", "Greenville", "Charleston", "Dillon"] }
-];
-
-let questionOrder = [];
-
-let SCORE = 0;
-const ANSWERS = "Columbia";
-let QuestionIndex = 0;
-
-*/
 function shuffle(arr) {
     var j, x, i;
     for (i = arr.length - 1; i > 0; i--) {
@@ -24,49 +12,33 @@ function shuffle(arr) {
 
 
 function renderScore(){
-    let scoreBoard = `<p>${SCORE} Out Of 10</p>`;
+    let scoreBoard = `<p>Score: ${SCORE} Out Of 10</p>`;
     $('.js-scoreBoard').html(scoreBoard);
+}
+function renderQuestionNumber(){
+    let questionNumber = `<p>Question: ${QUESTION_INDEX + 1}/10</p>`;
+    $('.js-questionNumber').html(questionNumber);
 }
 
 function renderQuestion(){
-    //<h2>What is the capital of South Carolina</h2>
     let capital = CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].state;
     let generateQuestion = `<h2>Which is the capital of ${capital}</h2>`;
     $('.js-question').html(generateQuestion);
 }
 
 function createIndividualAnswer(cityArr, answerNum){
-        /*
-    <div class="col-4 radioSpacing">
-        <input type="radio" id="Columbia"
-            name="answer" value="Columbia">
-        <label for="Columbia">Columbia</label>
-    </div>*/
     let answerArr = answerNum.map(answer =>
-        `<div class="col-4 radioSpacing">
+        `<div class="col-6 radioSpacing">
         <input type="radio" id="${cityArr[answer]}"
-            name="answer" value="${cityArr[answer]}">
+            name="answer" value="${cityArr[answer]}" required>
         <label for="${cityArr[answer]}">${cityArr[answer]}</label>
         </div>`);
 
     let answerGroup = createAnswerGroup(answerArr);
     return answerGroup;
-
 }
 
 function createAnswerGroup(radioInputsArr){
-
-    /*const answer = `
-    <div class="row rowSpacing">                      
-        ${radioInputsArr[0]}
-        ${radioInputsArr[1]}
-    </div>
-
-    <div class="row rowSpacing">
-        ${radioInputsArr[2]}
-        ${radioInputsArr[3]}
-    </div>`;*/
-
     let answer = '<div class="row rowSpacing">';
     let counter = 0;
     let rowSliter = 0;
@@ -106,30 +78,130 @@ function createQuestionOrder(){
 function findCorrect(pickedCity){
     if(pickedCity === CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].cap){
         SCORE++;
+        return true;
     }
+    return false;
+}
+function moveQuestionIndex(){
+    QUESTION_INDEX++;
 }
 
 function submitAnswer(){
-    $('#capitalForm').submit(function(event){
+    $('.js-submit').on('click', function(event){
         event.preventDefault();
-        let pickedCity = $('input[name=answer]:checked', '#capitalForm').val()
-        //console.log(pickedCity);
-        findCorrect(pickedCity);
-        QUESTION_INDEX = QUESTION_INDEX + 1;
+        let pickedCity = $('input[name=answer]:checked', '#capitalForm').val();
+        let isCorrect = findCorrect(pickedCity);
+        let answer = CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].cap;
+        moveQuestionIndex();
+        renderCorrectAnswer(isCorrect, pickedCity, answer);
+    });
+}
+
+
+
+function renderStartButton(){
+    const startButton = '<button type="button" class="buttonStyle blueBox js-startButton">Start Quiz</button>';
+    $('.js-buttonPlacement').html(startButton);
+}
+function renderSubmitButton(){
+    const submitButton = '<button type="submit" class="buttonStyle blueBox js-submit">Submit</button>';
+    $('.js-buttonPlacement').html(submitButton);
+}
+function renderContinueButton(){
+    const continueButton = '<button type="button" class="buttonStyle blueBox js-continueButton">Contine</button>';
+    $('.js-buttonPlacement').html(continueButton);
+}
+function renderRestartButton(){
+    const restartButton = '<button type="button" class="buttonStyle blueBox js-restartButton">Start Over?</button>';
+    $('.js-buttonPlacement').html(restartButton);
+}
+
+
+
+
+
+function hideRedBox(){
+    $('.redBox').hide();
+}
+function unhideRedBox(){
+    $('.redBox').show();
+}
+function openingStatement(){
+    const openingRemarks = '<h2>This is the Capital Quiz. This Quiz will test your Knowledge of state capitals</h2>\
+    <p style = "text-align: center">Click below to start</p>';
+    $('.whiteBox').html(openingRemarks);
+}
+function handleStartButton(){
+    $('.js-startButton').on('click', function(event){
         renderApp();
     });
 }
 
-function renderApp(){
-    renderScore();
-    renderQuestion();
-    renderAnswers();
+
+
+function renderResultsPage(){
+    let results = `<h2> Finished </h2> <h2>Your Score was ${SCORE} out of 10</h2>`;
+    $('.whiteBox').html(results);
+}
+function handleRestartButton(){
+    $('.js-restartButton').on('click', function(event){
+        handleCapitalApp();
+    });
 }
 
-function handleCapitalApp(){
-    createQuestionOrder();
-    renderApp();
+function handleContineButton(){
+    $('.js-continueButton').on('click',function(event){
+        if(QUESTION_INDEX === 10){
+            renderResults();
+        }else{
+            renderApp();
+        }
+    })
+}
+
+
+function renderCorrectAnswer(isCorrect, pickedCity, answer){
+    hideRedBox();
+    renderContinueButton();
+    let displayAnswer = `<h2>${isCorrect ? "Correct" : "Wrong"}</h2>\
+                            <p>Your answer was ${pickedCity} and the correct answer is ${answer}</p>`;
+    $('.whiteBox').html(displayAnswer);
+    handleContineButton();
+
+}
+
+
+function renderResults(){
+    hideRedBox();
+    renderResultsPage();
+    renderRestartButton();
+    handleRestartButton();
+}
+
+
+function renderApp(){
+    console.log(QUESTION_INDEX);
+    unhideRedBox();
+    renderScore();
+    renderQuestionNumber();
+    renderQuestion();
+    renderAnswers();
+    renderSubmitButton();
     submitAnswer();
+}
+
+function renderStart(){
+    hideRedBox();
+    openingStatement();
+    renderStartButton();
+    handleStartButton();
+}
+
+
+function handleCapitalApp(){
+    setAppStates();
+    createQuestionOrder();
+    renderStart();
     console.log(QUESTION_ORDER);
 }
 
