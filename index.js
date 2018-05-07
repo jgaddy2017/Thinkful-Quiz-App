@@ -83,6 +83,7 @@ function findCorrect(pickedCity){
     return false;
 }
 function moveQuestionIndex(){
+    console.log(QUESTION_INDEX);
     QUESTION_INDEX++;
 }
 
@@ -90,10 +91,12 @@ function submitAnswer(){
     $('.js-submit').on('click', function(event){
         event.preventDefault();
         let pickedCity = $('input[name=answer]:checked', '#capitalForm').val();
-        let isCorrect = findCorrect(pickedCity);
-        let answer = CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].cap;
-        moveQuestionIndex();
-        renderCorrectAnswer(isCorrect, pickedCity, answer);
+        if(pickedCity != undefined){
+            let isCorrect = findCorrect(pickedCity);
+            let answer = CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].cap;
+            moveQuestionIndex();
+            renderCorrectAnswer(isCorrect, pickedCity, answer);
+        }
     });
 }
 
@@ -126,6 +129,7 @@ function hideRedBox(){
 function unhideRedBox(){
     $('.redBox').show();
 }
+
 function openingStatement(){
     const openingRemarks = '<h2>This is the Capital Quiz. This Quiz will test your Knowledge of state capitals</h2>\
     <p style = "text-align: center">Click below to start</p>';
@@ -149,6 +153,8 @@ function handleRestartButton(){
     });
 }
 
+
+
 function handleContineButton(){
     $('.js-continueButton').on('click',function(event){
         if(QUESTION_INDEX === 10){
@@ -156,7 +162,7 @@ function handleContineButton(){
         }else{
             renderApp();
         }
-    })
+    });
 }
 
 
@@ -180,7 +186,6 @@ function renderResults(){
 
 
 function renderApp(){
-    console.log(QUESTION_INDEX);
     unhideRedBox();
     renderScore();
     renderQuestionNumber();

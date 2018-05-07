@@ -3,12 +3,14 @@
 
 html, body {
     margin: 0;
-    height: 100%;
+    height: auto;
 }
 .wrapper{
     background-image: url("./whiteHouse.jpg");
     /* Full height */
-    height: 100%; 
+    height: auto;
+    min-height: 800px;
+
 
     /* Center and scale the image nicely */
     background-position: center;
@@ -53,7 +55,7 @@ fieldset{
 .redBox{
     border: 5px solid rgb(224, 22, 43);
     border-radius: 5px;
-    background:rgba(224, 22, 43, 0.7);
+    background:rgba(224, 22, 43, 0.4);
     width: 50%;
     margin: auto;
     margin-top: 20px;
