@@ -17,10 +17,13 @@ html, body {
     background-repeat: no-repeat;
     background-size: cover;
 
+    font-weight: 900;
+
 }
 h1, h2, .scoreAlign{
     text-align: center;
     font-family: 'Raleway', sans-serif;
+    
 }
 
 
