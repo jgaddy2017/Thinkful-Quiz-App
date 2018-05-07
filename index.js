@@ -170,7 +170,7 @@ function renderCorrectAnswer(isCorrect, pickedCity, answer){
     hideRedBox();
     renderContinueButton();
     let displayAnswer = `<h2>${isCorrect ? "Correct" : "Wrong"}</h2>\
-                            <p>Your answer was ${pickedCity} and the correct answer is ${answer}</p>`;
+                            <p style="text-align: center">Your answer was ${pickedCity} and the correct answer is ${answer}</p>`;
     $('.whiteBox').html(displayAnswer);
     handleContineButton();
 
