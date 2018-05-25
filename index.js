@@ -22,29 +22,31 @@ function renderQuestionNumber(){
 
 function renderQuestion(){
     let capital = CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].state;
-    let generateQuestion = `<h2>Which is the capital of ${capital}</h2>`;
+    let generateQuestion = `<h2 tabindex="1">Which is the capital of ${capital}?</h2>`;
     $('.js-question').html(generateQuestion);
+    $('.js-question').find("h2").focus();
 }
 
 function createIndividualAnswer(cityArr, answerNum){
-    let answerArr = answerNum.map(answer =>
+    let answerArr = answerNum.map((answer, index) =>
         `<div class="col-6 radioSpacing">
         <input type="radio" id="${cityArr[answer]}"
-            name="answer" value="${cityArr[answer]}" required>
+            name="answer" value="${cityArr[answer]}" tabindex="${index+2}">
         <label for="${cityArr[answer]}">${cityArr[answer]}</label>
         </div>`);
+    
 
     let answerGroup = createAnswerGroup(answerArr);
     return answerGroup;
 }
 
 function createAnswerGroup(radioInputsArr){
-    let answer = '<div class="row rowSpacing">';
+    let answer = '<legend>Possible Choices</legend><div class="row rowSpacing">';
     let counter = 0;
     let rowSliter = 0;
     while(counter < radioInputsArr.length){
         if(counter === 2){
-            answer += '</div>';
+            answer += '</div>'; 
             answer += '<div class="row rowSpacing">';
             rowSliter = 0;
             answer += radioInputsArr[counter];
@@ -65,6 +67,7 @@ function renderAnswers(){
     let cityArr = CAPITALS[QUESTION_ORDER[QUESTION_INDEX]].cities;
     const answers = createIndividualAnswer(cityArr, answerArr);
     $('.js-answerBox').html(answers)
+
 
 }
 
@@ -107,7 +110,7 @@ function renderStartButton(){
     $('.js-buttonPlacement').html(startButton);
 }
 function renderSubmitButton(){
-    const submitButton = '<button type="submit" class="buttonStyle blueBox js-submit">Submit</button>';
+    const submitButton = '<button type="submit" class="buttonStyle blueBox js-submit" tabindex="99">Submit</button>';
     $('.js-buttonPlacement').html(submitButton);
 }
 function renderContinueButton(){
